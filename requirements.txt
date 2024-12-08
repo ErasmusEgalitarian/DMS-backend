@@ -1,0 +1,5 @@
+paho-mqtt
+pymongo[srv]
+pydantic
+fastapi
+uvicorn
