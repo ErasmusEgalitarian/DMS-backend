@@ -1,2 +1,2 @@
 worker: python main.py
-web: uvicorn server:app
+web: uvicorn --port 8080 server:app
