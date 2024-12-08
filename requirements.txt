@@ -3,3 +3,4 @@ pymongo[srv]
 pydantic
 fastapi
 uvicorn
+gunicorn
