@@ -1,6 +1,7 @@
 paho-mqtt
 pymongo[srv]
 pydantic
+pydantic-settings
 fastapi
 uvicorn
 gunicorn

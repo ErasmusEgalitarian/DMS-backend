@@ -1,7 +1,7 @@
-import constants
-from mongo_connector import MongoConnector
-from mqtt_connector import MqttConnector
-from schemas import MeasurementSchema
+from src import constants
+from src.mongo_connector import MongoConnector
+from src.mqtt_connector import MqttConnector
+from src.schemas import MeasurementBaseSchema
 
 
 class IngestionService:
@@ -9,11 +9,11 @@ class IngestionService:
         self.mqtt_connector = MqttConnector(handle_message=self.handle_mqtt_messages)
         self.mongo_connector = MongoConnector()
 
-        self.measurements_collections = constants.measurements_collection
+        self.measurements_collections = constants.env_config.MONGO_MEASUREMENTS_COLLECTION
 
     def handle_mqtt_messages(self, payload: dict):
         try:
-            measurement = MeasurementSchema(**payload)
+            measurement = MeasurementBaseSchema(**payload)
             self.insert_measurement(measurement)
             print('Measurement added to MongoDB successfully.')
         except Exception as e:

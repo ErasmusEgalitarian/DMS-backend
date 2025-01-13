@@ -1,7 +1,9 @@
 from threading import Thread
 
+import uvicorn
+
 import server
-from ingestion_service import IngestionService
+from src.ingestion_service import IngestionService
 
 
 def start_ingestion_service():
@@ -14,3 +16,5 @@ if __name__ == '__main__':
     ingestion_thread.start()
 
     # server.run_server()
+
+    uvicorn.run('server:app', host="0.0.0.0", port=8085, reload=True)

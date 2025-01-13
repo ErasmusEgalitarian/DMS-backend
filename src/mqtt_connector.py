@@ -3,22 +3,22 @@ import json
 import paho.mqtt.client as paho
 from paho import mqtt
 
-import constants
+from src import constants
 
 
 class MqttConnector:
     def __init__(self, handle_message):
         self.client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
 
-        self.topic = constants.measurements_topic
-        self.qos = constants.mqtt_qos
+        self.topic = constants.env_config.MQTT_MEASUREMENTS_TOPIC
+        self.qos = constants.env_config.MQTT_QOS
 
         # enable TLS for secure connection
         self.client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
         # set username and password
-        self.client.username_pw_set(constants.mqtt_username, constants.mqtt_password)
+        self.client.username_pw_set(constants.env_config.MQTT_USERNAME, constants.env_config.MQTT_PASSWORD)
         # connect to HiveMQ Cloud on port 8883 (default for MQTT)
-        self.client.connect(constants.mqtt_host, constants.mqtt_port)
+        self.client.connect(constants.env_config.MQTT_HOST, constants.env_config.MQTT_PORT)
 
         self.client.on_connect = self._on_connect
         self.client.on_subscribe = self._on_subscribe
